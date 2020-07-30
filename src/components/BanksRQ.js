@@ -1,17 +1,13 @@
 import React from "react";
-import axios from "axios";
-import { useQuery } from "react-query";
+import useBanksQuery from "./../hooks/useBanksQuery";
 
 const BanksRQ = ({ setSelectedBank }) => {
-  const { isLoading, data, error } = useQuery(
-    "banks",
-    async () => await axios.get("http://localhost:5000/banks")
-  );
+  const { isLoading, data, error } = useBanksQuery();
 
   return (
     <>
       {isLoading && <strong>Loading...</strong>}
-      {error && JSON.stringify(error, null, 2)}
+      {error && JSON.stringify(error.message, null, 2)}
       {data?.data.length > 0 && (
         <ul>
           {data.data.map((bank) => (

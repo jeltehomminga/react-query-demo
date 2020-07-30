@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import Banks from "./components/Banks";
 import BanksRQ from "./components/BanksRQ";
+import BankInterests from "./components/BankInterests";
+import BankEditInterests from "./components/BankEditInterest";
 import styled from "@emotion/styled";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 const BanksContainer = styled.div({
   width: "100%",
@@ -28,7 +31,6 @@ function App() {
   const [showBanks, setShowBanks] = useState(true);
   const [showBanksRQ, setShowBanksRQ] = useState(true);
 
-  console.log(selectedBank);
   return (
     <div className="App">
       <h1>with great interests App</h1>
@@ -45,20 +47,17 @@ function App() {
         </BankContainer>
       </BanksContainer>
 
-      <button
-        onClick={() => setShowBanksRQ((showBanks) => !showBanks)}
-        style={{ margin: 20 }}
-      >
+      <button onClick={() => setShowBanksRQ(!showBanksRQ)}>
         toggleBanks React Query
       </button>
       <BanksContainer>
         <BankContainer>
-          Bank / Verzekeraar{" "}
+          Bank / Verzekeraar
           {showBanksRQ && <BanksRQ setSelectedBank={setSelectedBank} />}
         </BankContainer>
 
         <BankContainer>
-          Bank / Verzekeraar{" "}
+          Bank / Verzekeraar
           {showBanksRQ && <BanksRQ setSelectedBank={setSelectedBank} />}
         </BankContainer>
 
@@ -70,6 +69,23 @@ function App() {
           Pas Rente aan
         </div> */}
       </BanksContainer>
+
+      {/* BankInterests */}
+
+      {selectedBank && (
+        <BanksContainer>
+          <BankContainer>
+            <strong>{selectedBank}</strong>
+            <BankInterests selectedBank={selectedBank} />
+          </BankContainer>
+
+          <BankContainer>
+            <BankEditInterests selectedBank={selectedBank} />
+          </BankContainer>
+        </BanksContainer>
+      )}
+
+      <ReactQueryDevtools initialIsOpen={false} />
     </div>
   );
 }

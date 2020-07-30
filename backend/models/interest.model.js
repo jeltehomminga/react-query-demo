@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const interestSchema = new Schema(
   {
     name: { type: String, required: true },
-    interests: { type: Array, required: true },
+    interests: { type: Object, required: true },
   },
   { timestamps: true }
 );

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const useBanksQuery = () => {
   const query = useQuery(
-    "banks",
+    ["banks"],
     async () => await axios.get("http://localhost:5000/banks")
   );
 

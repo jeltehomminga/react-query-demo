@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
 const Bank = require("./models/bank.model");
+const Interest = require("./models/interest.model");
 
 app.use(cors());
 app.use(express.json());
@@ -25,7 +25,12 @@ app.get("/banks", async (req, res) => {
   return setTimeout(() => res.json(banks), 1000);
 });
 
-app.use(express.static(path.join(__dirname, "public/build")));
-app.use((req, res) => res.sendFile(__dirname + "/public/build/index.html"));
+app.get("/banks/:bankname", async (req, res) => {
+  const { bankname } = req.params;
+  const interests = await Interest.findOne({ name: bankname }).catch((err) =>
+    res.status(400).json(`Error: ${err}`)
+  );
+  return setTimeout(() => res.json(interests), 1000);
+});
 
 app.listen(port, () => console.log(`port running on ${port}`));
