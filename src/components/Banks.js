@@ -18,7 +18,6 @@ const Banks = ({ setSelectedBank }) => {
     getBanks();
   }, []);
 
-  console.log(banks);
   return (
     <>
       {isLoading && <strong>Loading...</strong>}
